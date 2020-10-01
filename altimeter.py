@@ -1,3 +1,6 @@
+#!/usr/python3
+
+# I hate Python globals
 global file
 global data
 global count
