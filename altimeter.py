@@ -6,7 +6,7 @@ global file
 global data
 global count
 
-delta_t = 0.1 #sec (not ms, dumb Python)
+delta_t = 0.05 #sec (not ms, dumb Python)
 
 def altimeter_init():
     global file, data, count
@@ -23,11 +23,18 @@ def get_altitude():
     try:
         time.sleep(delta_t)
         count = count + 1
-        return data[count - 1]
+        return float(data[count - 1])
     except IndexError:
-        return -1
+        return None
 
 if __name__ == '__main__':
     altimeter_init()
-    print(get_altitude())
+    running = True
+    while running:
+        alt = get_altitude()
+        if alt is not None:
+            print(alt)
+        else:
+            running = False
+
     altimeter_close()
